@@ -177,6 +177,7 @@
         },
         sortLatest() {
           // sort by timestamp
+          this.tips.sort((a,b) => (a.received_at < b.received_at) ? 1 : -1)
         },
         sortHighestRated() {
           // sort by most tipped amount combined
