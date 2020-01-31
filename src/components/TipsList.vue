@@ -186,7 +186,6 @@
     .content__container{
       width: 70vw;
       margin: 0 auto;
-      background-color: #323232;
       position: relative;
       .spinner-border.text-light,.no-results{
         position: fixed;
@@ -223,6 +222,11 @@
         transform: translateY(-50%);
       }
     } 
+    .text-ellipsis{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
  
   #app-content {

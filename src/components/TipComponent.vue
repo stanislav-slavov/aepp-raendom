@@ -2,12 +2,12 @@
   <div class="tip__item pt-3 pb-3 mb-3">
     <div class="container">
     <div class="row">
-      <div class="col-sm left">
+      <div class="col-sm-12 left">
         <div class="note">
           {{tip.note}}
         </div>
-        <div><span class="amount">+ {{ tip.amount }}</span><span class="sender-info"> æids from {{ tip.sender }}</span></div>
-        <div class="url pt-2">
+        <div><span class="amount">+ {{ tip.amount }}</span><span class="sender-info" :title="tip.sender"> æids from {{ tip.sender }}</span></div>
+        <div class="url pt-2 text-ellipsis" :title="tip.url">
           {{tip.url}}
         </div>
         <div class="clearfix">
@@ -15,9 +15,9 @@
           <div class="date float-left mr-3 heart"><i class="fas fa-heart"></i> {{ tip.amount }}</div>
         </div>
       </div>
-      <div class="col-sm">
+      <!-- <div class="col-sm-6">
         {{tip.url}}
-      </div>
+      </div> -->
     </div>
   </div>
   </div>
@@ -47,7 +47,7 @@ props: ['tip'],
   .url{
     font-size: .5rem;
   }
-  .col-sm.left{
+  .left{
     text-align: right;
   }
   .amount{

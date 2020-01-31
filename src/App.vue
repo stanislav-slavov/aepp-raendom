@@ -19,5 +19,6 @@ export default {
 <style>
 #app {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  background-color: #26221E;
 }
 </style>
