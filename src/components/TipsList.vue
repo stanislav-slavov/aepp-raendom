@@ -18,6 +18,10 @@
         <div class="search__container">
             <input class="search__input" v-model="searchTerm" type="text" placeholder="Search for a tip record..." id="tips-search">
         </div>
+        <div>
+          <button v-on:click="sortLatest()">latest</button>
+          <button v-on:click="sortHighestRated()">highest rated</button>
+        </div>
         <table class="table table-responsive">
           <thead>
             <tr>
@@ -170,6 +174,13 @@
             temp.push(p)
           });
           return temp;
+        },
+        sortLatest() {
+          // sort by timestamp
+        },
+        sortHighestRated() {
+          // sort by most tipped amount combined
+          this.tips.sort((a, b) => (a.amount < b.amount) ? 1 : -1)
         }
       },
       async created() {
