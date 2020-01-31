@@ -1,6 +1,21 @@
 <template>
   <div>
     <div class="content__wrapper">
+
+      <div class="container mt-0">
+        <div class="row head-info-padded">
+          <h2>Information is power. First-hand information is even better.</h2>
+
+          <p>
+            Get real-time global updates about the corona virus sourced from beyond just news outlets: conversations by real people on the ground, all in one place.
+          </p>
+          <br>
+          <p>
+            This information hub enables users to incentivize informative and accurate updates about the corona virus from all over the world—whether created by news organizations or regular people, like you. Learn more about how you can start contributing to a more truthful web
+          </p>
+        </div>
+      </div>
+
       <div class="content__container">
         <div class="actions-line p-3 clearfix">
           <div class="float-left pt-1">NEWS</div>
@@ -17,67 +32,6 @@
         <div class="no-results"  v-if="filteredTips !== null && filteredTips.length == 0"><span>There are no results found</span></div>
       </div>
     </div>
-   
-    <div>
-      <!-- <div class="overlay-loader" v-show="!client || showLoading">
-        <BiggerLoader :progress="loadingProgress"></BiggerLoader>
-      </div> -->
-    </div>
-    <div id="app-content">
-      <h2>tip explorer</h2>
-      <p>
-        Welcome to the aeternity tips explorer.
-        
-        <br> To start tipping and receiving tips install the <a href="https://waellet.com">waellet</a> extension
-      </p>
-
-      <div class="container">
-        <div class="search__container">
-            <!-- <input class="search__input" v-model="searchTerm" type="text" placeholder="Search for a tip record..." id="tips-search"> -->
-        </div>
-        <div>
-          <button v-on:click="sortLatest()">latest</button>
-          <button v-on:click="sortHighestRated()">highest rated</button>
-        </div>
-        <table class="table table-responsive">
-          <thead>
-            <tr>
-              <th></th>
-              <th>URL / Tipper / Tipnote</th>
-              <th>Timestamp</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(tip,index) in filteredTips" :key="index">
-              <td>
-                <ae-identicon class="identicon" :address="tip.sender" size="base" />
-              </td>
-              <td>
-                  <div class="text-left mr-auto tip-content">
-                    <ae-label face="mono-xs" class="tip-note mt-0 mb-0" > {{ tip.note }} </ae-label>
-                    <ae-text face="mono-xs" class="tip-url" :title="tip.url" > <a :href="tip.url"> {{ tip.url }} </a> </ae-text>
-                    <small>
-                      <ae-text length="flat" class="sender"> {{ tip.sender }} </ae-text>
-                    </small>
-                </div>
-              </td>
-              <td>
-                <ae-text face="mono-xs" class="transactionDate">{{ new Date(tip.received_at).toLocaleString('en-US', { hourCycle: 'h24' }) }}</ae-text>
-              </td>
-              <td>
-                <span class="balance">{{ tip.amount }}</span>
-              </td>
-              <td>
-                <span v-bind:class = "(tip.repaid)?'repaid':'unclaimed'" class="status status-label">{{ tip.repaid == true ? 'Repaid' : 'Unclaimed' }}</span>
-              </td>
-            </tr>
-            <tr v-if="filteredTips !== null && filteredTips.length == 0"><td colspan="5">There are no results found</td></tr>
-          </tbody>
-        </table>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -555,5 +509,12 @@
   }
   .table th:nth-child(2), .table td:nth-child(2){
     width: 35rem;
+  }
+
+  .head-info-padded {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 </style>
