@@ -9,7 +9,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 const PurgecssPlugin = require('purgecss-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const glob = require('glob-all')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // Custom PurgeCSS extractor for Tailwind that allows special characters in
 // class names.
 //
@@ -78,6 +78,11 @@ module.exports = env => {
         short_name: 'Example',
         description: 'Your average aepp.',
         background_color: '#ff0d6a'
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css',
+        ignoreOrder: false,
       })
     ],
     module: {
@@ -119,6 +124,14 @@ module.exports = env => {
               }
             }
           ]
+        },
+        {
+          test: /\.scss$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        },
+        {
+          test: /\.sass$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader?indentedSyntax'],
         },
         // allows vue compoents in '<template><html><script><style>' syntax
         {

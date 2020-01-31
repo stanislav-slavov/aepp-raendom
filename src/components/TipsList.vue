@@ -1,66 +1,22 @@
 <template>
   <div>
-    <div>
-      <div class="overlay-loader" v-show="!client || showLoading">
-        <BiggerLoader :progress="loadingProgress"></BiggerLoader>
+    <div class="content__wrapper">
+      <div class="content__container">
+        <div class="actions-line p-3 clearfix">
+          <div class="float-left pt-1">NEWS</div>
+          <div class="float-right">
+            <a class="pr-3" v-on:click="sortLatest()">LATEST</a>
+            <a class="pr-3" v-on:click="sortHighestRated()">HIGHEST RATED</a>
+          </div>
+          <div class="float-right"><input class="search__input p-1" v-model="searchTerm" type="text" placeholder="Search for a tip record..." id="tips-search"></div>
+        </div>
+        <div class="spinner-border text-light" v-show="!client || showLoading" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <tip-component v-for="(tip,index) in filteredTips" :key="index" v-bind:tip="tip"></tip-component>
+        <div class="no-results"  v-if="filteredTips !== null && filteredTips.length == 0"><span>There are no results found</span></div>
       </div>
     </div>
-    <div id="app-content">
-      <h2>tip explorer</h2>
-
-      <p>
-        Welcome to the aeternity tips explorer.
-        
-        <br> To start tipping and receiving tips install the <a href="https://waellet.com">waellet</a> extension
-      </p>
-
-      <div class="container">
-        <div class="search__container">
-            <input class="search__input" v-model="searchTerm" type="text" placeholder="Search for a tip record..." id="tips-search">
-        </div>
-        <div>
-          <button v-on:click="sortLatest()">latest</button>
-          <button v-on:click="sortHighestRated()">highest rated</button>
-        </div>
-        <table class="table table-responsive">
-          <thead>
-            <tr>
-              <th></th>
-              <th>URL / Tipper / Tipnote</th>
-              <th>Timestamp</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(tip,index) in filteredTips" :key="index">
-              <td>
-                <ae-identicon class="identicon" :address="tip.sender" size="base" />
-              </td>
-              <td>
-                  <div class="text-left mr-auto tip-content">
-                    <ae-label face="mono-xs" class="tip-note mt-0 mb-0" > {{ tip.note }} </ae-label>
-                    <ae-text face="mono-xs" class="tip-url" :title="tip.url" > <a :href="tip.url"> {{ tip.url }} </a> </ae-text>
-                    <small>
-                      <ae-text length="flat" class="sender"> {{ tip.sender }} </ae-text>
-                    </small>
-                </div>
-              </td>
-              <td>
-                <ae-text face="mono-xs" class="transactionDate">{{ new Date(tip.received_at).toLocaleString('en-US', { hourCycle: 'h24' }) }}</ae-text>
-              </td>
-              <td>
-                <span class="balance">{{ tip.amount }}</span>
-              </td>
-              <td>
-                <span v-bind:class = "(tip.repaid)?'repaid':'unclaimed'" class="status status-label">{{ tip.repaid == true ? 'Repaid' : 'Unclaimed' }}</span>
-              </td>
-            </tr>
-            <tr v-if="filteredTips !== null && filteredTips.length == 0"><td colspan="5">There are no results found</td></tr>
-          </tbody>
-        </table>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -78,6 +34,7 @@
   import CONTRACT_TIP_ANY from '../../contracts/tip_any_basic.aes';
 
   import BiggerLoader from './BiggerLoader'
+  import TipComponent from './TipComponent'
 
   export default {
     name: 'TipsList',
@@ -89,7 +46,8 @@
         AeListItem,
         AeCheck,
         PrismEditor,
-        BiggerLoader
+        BiggerLoader,
+        TipComponent
       },
       data() {
         return {
@@ -202,7 +160,56 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import './styles'; 
+
+  .content__wrapper{
+    background-color: #26221E;
+    width: 100vw;
+    color: white;
+    min-height: 100vw;
+    .content__container{
+      width: 70vw;
+      margin: 0 auto;
+      background-color: #323232;
+      position: relative;
+      .spinner-border.text-light,.no-results{
+        position: fixed;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: 0;
+      }
+      .actions-line{
+        background-color: #323232;
+        input{
+          font-size: .75rem;
+          margin-right: 1rem;
+          width: 15rem;
+        }
+        h4{
+          margin-bottom: 0;
+        }
+        a{
+          font-size: .6125rem;
+          &:hover{
+            cursor: pointer;
+            color: #F0B800;
+          }
+          &:active{
+            color: red;
+          }
+        }
+      }
+    }
+    .no-results{
+      text-align: center;
+      span{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    } 
+  }
+ 
   #app-content {
     margin-top: 2rem;
     max-width: 1200px;
