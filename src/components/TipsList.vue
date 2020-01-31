@@ -2,6 +2,8 @@
   <div>
     <div class="content__wrapper">
 
+      <div class="content__container">
+
       <div class="container mt-0">
         <div class="row head-info-padded">
           <h2>Information is power. First-hand information is even better.</h2>
@@ -16,7 +18,6 @@
         </div>
       </div>
 
-      <div class="content__container">
         <div class="actions-line p-3 clearfix">
           <div class="float-left pt-1">NEWS</div>
           <div class="float-right">
@@ -25,11 +26,13 @@
           </div>
           <div class="float-right"><input class="search__input p-1" v-model="searchTerm" type="text" placeholder="Search for a tip record..." id="tips-search"></div>
         </div>
-        <div class="spinner-border text-light" v-show="!client || showLoading" role="status">
+        <tip-component v-for="(tip,index) in filteredTips" :key="index" v-bind:tip="tip"></tip-component>
+        <div class="no-results p-5"  v-if="filteredTips !== null && filteredTips.length == 0"><span>There are no results found</span></div>
+        <div class="p-5 spinner">
+          <div class="spinner-border text-light" v-show="!client || showLoading" role="status">
           <span class="sr-only">Loading...</span>
         </div>
-        <tip-component v-for="(tip,index) in filteredTips" :key="index" v-bind:tip="tip"></tip-component>
-        <div class="no-results"  v-if="filteredTips !== null && filteredTips.length == 0"><span>There are no results found</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -187,11 +190,6 @@
       width: 70vw;
       margin: 0 auto;
       position: relative;
-      .spinner-border.text-light,.no-results{
-        position: fixed;
-        margin: auto;
-        top: 0; left: 0; bottom: 0; right: 0;
-      }
       .actions-line{
         background-color: #323232;
         input{
@@ -216,12 +214,13 @@
     }
     .no-results{
       text-align: center;
-      span{
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-      }
     } 
+    .spinner{
+      text-align: center;
+    }
+    .spinner-border{
+      text-align: center;
+    }
     .text-ellipsis{
       white-space: nowrap;
       overflow: hidden;
@@ -518,7 +517,5 @@
   .head-info-padded {
     padding-top: 3rem;
     padding-bottom: 3rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
   }
 </style>
