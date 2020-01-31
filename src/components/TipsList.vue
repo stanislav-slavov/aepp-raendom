@@ -5,14 +5,11 @@
       <div class="container mt-0">
         <div class="row head-info-padded">
           <h2>Information is power. First-hand information is even better.</h2>
-
           <p>
             Get real-time global updates about the corona virus sourced from beyond just news outlets: conversations by real people on the ground, all in one place.
-          </p>
-          <br>
-          <p>
             This information hub enables users to incentivize informative and accurate updates about the corona virus from all over the world—whether created by news organizations or regular people, like you. Learn more about how you can start contributing to a more truthful web
           </p>
+
         </div>
       </div>
 
@@ -23,13 +20,37 @@
             <a class="pr-3" v-on:click="sortLatest()">LATEST</a>
             <a class="pr-3" v-on:click="sortHighestRated()">HIGHEST RATED</a>
           </div>
-          <div class="float-right"><input class="search__input p-1" v-model="searchTerm" type="text" placeholder="Search for a tip record..." id="tips-search"></div>
+          <div class="float-right"><input class="search__input p-1" v-model="searchTerm" type="text" placeholder="Search" id="tips-search"></div>
         </div>
+
+        <div class="container">
+
+        <!-- <table class="table table-responsive"> -->
+          <!-- <tbody> -->
+            <div class="row tip-list-item" v-for="(tip,index) in filteredTips" :key="index">
+              <div class="col-md-1">
+                <i class="fas fa-heart fa-2x secondary-color"></i> 
+              </div>
+              <div class="col-md-9">
+                <div class="text-left mr-auto tip-content">
+                    <ae-label face="mono-xs" class="tip-note mt-0 mb-0" > {{ tip.note }} </ae-label>
+                    <ae-text face="mono-xs" class="tip-url" :title="tip.url" > <a :href="tip.url"> {{ tip.url }} </a> </ae-text>
+                    <small>
+                      <ae-text length="flat" class="sender"> {{ tip.sender }} </ae-text>
+                    </small>
+                </div>
+                <span class="balance secondary-color"><i class="fas fa-heart secondary-color"></i> + {{ tip.amount }}</span>
+              </div>
+              <div class="col-md-2">
+                <span class="transactionDate">{{ new Date(tip.received_at).toLocaleString('en-US', { hourCycle: 'h24' }) }}</span>
+              </div>
+            </div>
+        </div>
+
+
         <div class="spinner-border text-light" v-show="!client || showLoading" role="status">
           <span class="sr-only">Loading...</span>
         </div>
-        <tip-component v-for="(tip,index) in filteredTips" :key="index" v-bind:tip="tip"></tip-component>
-        <div class="no-results"  v-if="filteredTips !== null && filteredTips.length == 0"><span>There are no results found</span></div>
       </div>
     </div>
   </div>
@@ -70,7 +91,7 @@
           keypair: Crypto.generateKeyPair(),
           contractCode: CONTRACT_TIP_ANY,
           contractInstance: null,
-          contractAddress: 'ct_cT9mSpx9989Js39ag45fih2daephb7YsicsvNdUdEB156gT5C',
+          contractAddress: 'ct_YpQpntd6fi6r3VXnGW7vJiwPYtiKvutUDY35L4PiqkbKEVRqj',
           address: null,
           client: null,
           showLoading: true,
@@ -178,15 +199,34 @@
 <style lang="scss">
   @import './styles'; 
 
+  .transactionDate {
+    font-size: 1em;
+  }
+
+  .tip-note {
+    color: #FFFBFF;
+  }
+
+  .tip-list-item {
+    background-color: #36363A;
+    margin-bottom: 0.5rem;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .tip-url a {
+    color: #9796E3;
+  }
+
   .content__wrapper{
-    background-color: #26221E;
+    background-color: #17161C;
     width: 100vw;
     color: white;
     min-height: 100vw;
     .content__container{
       width: 70vw;
       margin: 0 auto;
-      background-color: #323232;
+      // background-color: #323232;
       position: relative;
       .spinner-border.text-light,.no-results{
         position: fixed;
@@ -207,10 +247,10 @@
           font-size: .6125rem;
           &:hover{
             cursor: pointer;
-            color: #F0B800;
+            color: #F44683;
           }
           &:active{
-            color: red;
+            color: #F44683;
           }
         }
       }
@@ -225,6 +265,10 @@
     } 
   }
  
+  .secondary-color {
+    color: #F44683;
+  }
+
   #app-content {
     margin-top: 2rem;
     max-width: 1200px;
@@ -381,7 +425,7 @@
   }
 
   .balance {
-    color: red;
+    color: #F44683;
     font-size: 0.5em;
     font-weight:bold;
   }
@@ -453,11 +497,10 @@
   .balance {
     font-size: 1rem;
     font-weight: bold;
-    color:#000;
   }
 
   .balance:after {
-    content:'AE'
+    content:'æids'
   }
 
   small {
