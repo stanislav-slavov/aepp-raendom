@@ -59,8 +59,8 @@ export default {
     top: 0;
     left: 0;
     border-radius: .1rem;
-    color: $primary_color;
-    border: 0.075rem solid $primary_color;
+    color: $custom_links_color;
+    border: 0.075rem solid $custom_links_color;
     z-index: 1;
     background-color: $article_content_color;
     padding-top: .125rem;
@@ -70,6 +70,7 @@ export default {
   }
   .article__item{
     width: $article_image_width;
+    color: $standard_font_color;
     .article__image-container{
       position: relative;
       .article__tokens-count{
@@ -93,7 +94,7 @@ export default {
       color: $secondary_color
     }
     .article__caption{
-      color: $primary_color;
+      color: $custom_links_color;
       font-weight: 700;
       height: 3.5rem;
       @include truncate-overflow-mx(3);

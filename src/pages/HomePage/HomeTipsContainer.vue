@@ -221,20 +221,27 @@
       .input-group{
         width: 55%;
         .form-control{
+          background-color: $white_color;
+          color: $standard_font_color;
           font-size: .75rem;
+          border: 1px solid $white_color;
         }
         .input-group-text{
           background-color: $search_icon_backgound;
+          border: 1px solid $white_color;
           &:hover{
             cursor: pointer;
             background-color: $primary_color;
+            .fas.fa-search{
+              color: $search_icon_hover_color;
+            }
           }
           &:active{
              background-color: $secondary_color;
           }
         }
         .fas.fa-search{
-          color: $white_color;
+          color: $standard_font_color;
         }
       }
       .sorting{
@@ -290,7 +297,7 @@
             font-weight: 700;
           }
           .tip__sender{
-            color: $primary_color;
+            color: $custom_links_color;
             font-weight: 700;
             font-size: .375rem;
           }
@@ -313,6 +320,7 @@
         min-height: 5.9rem;
         font-size: .5rem;
         position: relative;
+        color: $standard_font_color;
         .tip__article__caption{
           font-size: .625rem;
           font-weight: 700;

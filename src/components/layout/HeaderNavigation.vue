@@ -11,17 +11,17 @@
             <span>Home</span>
           </a>
         </router-link>
-        <router-link class="nav-item" tag="li" active-class="active" to="/test">
+        <router-link class="nav-item" tag="li" active-class="active" to="/home">
           <a class="nav-link">
             <span>Blockchain</span>
           </a>
         </router-link>
-        <router-link class="nav-item" tag="li" active-class="active" to="/" exact>
+        <router-link class="nav-item" tag="li" active-class="active" to="/home" exact>
           <a class="nav-link">
             <span>Gaming</span>
           </a>
         </router-link>
-        <router-link class="nav-item" tag="li" active-class="active" to="/test2">
+        <router-link class="nav-item" tag="li" active-class="active" to="/home">
           <a class="nav-link">
             <span>Pricing</span>
           </a>
@@ -65,7 +65,7 @@ export default {
   top: 0;
   left: 0;
   padding: 0 5vw;
-  background-color: #fff;
+  background-color: $white_color;
   -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
   -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
   box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);

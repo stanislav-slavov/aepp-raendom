@@ -26,6 +26,9 @@ export default {
     color: $primary_color;
     font-weight: 700;
     cursor: pointer;
+    &:hover{
+      color: $secondary_color;
+    }
   }
 }
 </style>
